@@ -29,6 +29,10 @@ public class ProjectsPage extends BasePage {
         return Selenide.open(PROJECTS_URL, ProjectsPage.class);
     }
 
+    public ProjectsPage() {
+        header.shouldBe(Condition.visible, BASE_WAITING);
+    }
+
     public List<ProjectElement> getProjects() {
         return generatePageElements(projectElements, ProjectElement::new);
     }
