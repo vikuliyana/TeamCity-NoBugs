@@ -3,7 +3,6 @@ package com.example.teamcity.ui;
 import com.codeborne.selenide.Condition;
 import com.example.teamcity.api.enums.Endpoint;
 import com.example.teamcity.api.models.Project;
-import com.example.teamcity.ui.pages.LoginPage;
 import com.example.teamcity.ui.pages.ProjectPage;
 import com.example.teamcity.ui.pages.ProjectsPage;
 import com.example.teamcity.ui.pages.admin.CreateProjectPage;
