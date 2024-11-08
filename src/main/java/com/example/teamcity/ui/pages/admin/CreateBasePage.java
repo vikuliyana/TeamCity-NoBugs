@@ -14,6 +14,7 @@ public abstract class CreateBasePage extends BasePage {
     protected SelenideElement submitButton = $(Selectors.byAttribute("value", "Proceed"));
     protected SelenideElement buildTypeNameInput = $("#buildTypeName");
     protected SelenideElement connectionSuccessfulMessage = $(".connectionSuccessful");
+    protected SelenideElement manualCreationButton = $(Selectors.byAttribute("name", "createManually"));
 
     protected void baseCreateForm(String url) {
         urlInput.val(url);
