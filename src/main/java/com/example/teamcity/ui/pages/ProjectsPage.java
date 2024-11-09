@@ -16,8 +16,6 @@ public class ProjectsPage extends BasePage {
 
     private ElementsCollection projectElements = $$("div[class*='Subproject__container']");
 
-    private SelenideElement spanFavoriteProjects = $("span[class='ProjectPageHeader__title--ih']");
-
     private SelenideElement header = $(".MainPanel__router--gF > div");
 
     // ElementCollection -> List<ProjectElement>

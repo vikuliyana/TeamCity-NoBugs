@@ -17,29 +17,28 @@ public class CreateBuildTypeTest extends BaseUiTest {
 
     @Test(description = "User should be able to create build configuration", groups = {"Positive"})
     public void userCreatesBuildType() {
-        // подготовка окружения
         loginAs(testData.getUser());
         var createdProject = superUserCheckRequests.<Project>getRequest(PROJECTS).create(generate(Project.class));
 
-        // взаимодействие с UI
         CreateBuildTypePage.open(createdProject.getId())
                 .createForm(REPO_URL)
                 .setupBuildType(testData.getBuildType().getName());
 
-        // проверка состояния API
-        // (корректность отправки данных с UI на API)
         var createdBuildType = superUserCheckRequests.<BuildType>getRequest(Endpoint.BUILD_TYPES).read("name:" + testData.getBuildType().getName());
         softy.assertNotNull(createdBuildType);
 
-        // проверка состояния UI
-        // (корректность считывания данных и отображение данных на UI)
         BuildTypePage.open(createdBuildType.getId())
-                .title.has(Condition.text(testData.getBuildType().getName()));
-
+                .title.shouldHave(Condition.text(testData.getBuildType().getName()));
     }
 
-    @Test(description = "User should not be able to create build configuration with empty name", groups = {"Negative"})
+    @Test(description = "User should not be able to create build configuration with an empty name", groups = {"Negative"})
     public void userCreatesProjectWithoutName() {
+        loginAs(testData.getUser());
+        var createdProject = superUserCheckRequests.<Project>getRequest(PROJECTS).create(generate(Project.class));
 
+        CreateBuildTypePage.open(createdProject.getId())
+                .createForm(REPO_URL)
+                .setupBuildTypeWithEmptyName()
+                .buildTypeNameValidationError.shouldHave(Condition.exactText("Build configuration name must not be empty"));
     }
 }
