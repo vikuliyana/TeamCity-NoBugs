@@ -6,6 +6,7 @@ import com.example.teamcity.api.models.BuildType;
 import com.example.teamcity.api.models.Project;
 import com.example.teamcity.ui.pages.BuildTypePage;
 import com.example.teamcity.ui.pages.admin.CreateBuildTypePage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static com.example.teamcity.api.enums.Endpoint.PROJECTS;
@@ -32,13 +33,18 @@ public class CreateBuildTypeTest extends BaseUiTest {
     }
 
     @Test(description = "User should not be able to create build configuration with an empty name", groups = {"Negative"})
-    public void userCreatesProjectWithoutName() {
+    public void userCreatesBuildTypeWithoutName() {
         loginAs(testData.getUser());
         var createdProject = superUserCheckRequests.<Project>getRequest(PROJECTS).create(generate(Project.class));
+        var numberOfBuildTypesBeforeTest = superUserCheckRequests.<Project>getRequest(PROJECTS).read("id:" + createdProject.getId()).getBuildTypes().getCount();
 
         CreateBuildTypePage.open(createdProject.getId())
                 .createForm(REPO_URL)
                 .setupBuildTypeWithEmptyName()
-                .buildTypeNameValidationError.shouldHave(Condition.exactText("Build configuration name must not be empty"));
+                .buildTypeNameValidationError.shouldHave(Condition.visible)
+                .shouldHave(Condition.exactText("Build configuration name must not be empty"));
+
+        var numberOfBuildTypesAfterTest = superUserCheckRequests.<Project>getRequest(PROJECTS).read("id:" + createdProject.getId()).getBuildTypes().getCount();
+        Assert.assertEquals(numberOfBuildTypesAfterTest, numberOfBuildTypesBeforeTest, "The actual value does not match the expected value.");
     }
 }

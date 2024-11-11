@@ -9,6 +9,7 @@ public class CreateBuildTypePage extends CreateBasePage {
     private static final String BUILD_TYPE_SHOW_MODE = "createBuildTypeMenu";
 
     public SelenideElement buildTypeNameValidationError = $("#error_buildTypeName");
+    public SelenideElement createdSuccessMessage = $(".successMessage ");
 
     public static CreateBuildTypePage open(String projectId) {
         return Selenide.open(CREATE_URL.formatted(projectId, BUILD_TYPE_SHOW_MODE), CreateBuildTypePage.class);
@@ -18,9 +19,10 @@ public class CreateBuildTypePage extends CreateBasePage {
         return this;
     }
 
-    public void setupBuildType(String buildTypeName) {
+    public CreateBuildTypePage setupBuildType(String buildTypeName) {
         buildTypeNameInput.val(buildTypeName);
         submitButton.click();
+        return this;
     }
 
     public CreateBuildTypePage setupBuildTypeWithEmptyName() {

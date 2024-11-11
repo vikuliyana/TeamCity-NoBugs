@@ -86,3 +86,11 @@ GET http://{{host}}:8111/app/rest/projects/{{projectId}}/buildTypes
 Content-Type: application/json
 Accept: application/json
 Authorization: Basic admin admin
+
+### 6. Check build types for project
+# @no-cookie-jar
+GET http://{{host}}:8111/app/rest/projects/{{projectId}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic admin admin
+
