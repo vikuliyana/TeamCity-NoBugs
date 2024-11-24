@@ -22,5 +22,4 @@ public abstract class CreateBasePage extends BasePage {
         submitButton.click();
         connectionSuccessfulMessage.should(Condition.appear, BASE_WAITING);
     }
-
 }
