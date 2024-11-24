@@ -15,4 +15,5 @@ public class ProjectPage extends BasePage {
     public static ProjectPage open(String projectId) {
         return Selenide.open(PROJECT_URL.formatted(projectId), ProjectPage.class);
     }
+
 }
