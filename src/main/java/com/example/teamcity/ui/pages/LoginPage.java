@@ -29,5 +29,6 @@ public class LoginPage extends BasePage {
         inputSubmitLogin.click();
 
         return Selenide.page(ProjectsPage.class);
+
     }
 }
